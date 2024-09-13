@@ -62,8 +62,8 @@ void OlderlyDeleteSame(List& list) {
 int main()
 {
 	List list;
-	list.length = 9;
-	int Data[] = { 1,4,9,9,9,9,9,24,14,3 };
+	list.length = 11;
+	int Data[] = { 1,3,3,4,9,9,9,9,9,14,14,24 };
 	for (int i = 0; i < list.length; i++)
 		list.data[i] = Data[i];
 	PrintList(list);
