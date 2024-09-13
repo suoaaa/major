@@ -34,3 +34,6 @@ void PrintList(List list) {
 	}
 	printf("\n");
 }
+bool listIsNull(List list){
+	return !list.length;
+}
