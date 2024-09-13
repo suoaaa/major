@@ -39,7 +39,7 @@ LinkList CreatList(List list) {
 		return NULL;
 	}
 	LNode* head = (LinkList)malloc(sizeof(LNode));
-	head->data = list.data[0];
+	head->data = 0;
 	head->next = NULL;
 	LinkList p = head;
 	for(int i=0 ; i< list.length; i++) {
