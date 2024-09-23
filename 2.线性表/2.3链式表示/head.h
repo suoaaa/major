@@ -10,10 +10,17 @@ typedef struct {
 	int length;
 }List;
 
+//定义单链表
 typedef struct LNode {
 	ElemType data;
 	struct LNode* next;
 }LNode, *LinkList;
+
+//定义双链表
+typedef struct DLNode {
+	ElemType data;
+	struct LNode* next,prior;
+}DLNode, *DLinkList;
 
 void swap(int& a, int& b) {
 	int t;
@@ -51,6 +58,7 @@ LinkList CreatList(List list) {
 	}
 	return head;
 }
+
 //输出链表
 void PrintList(LinkList list) {
 	if(!list) return ;
@@ -61,6 +69,7 @@ void PrintList(LinkList list) {
 	}
 	printf("\n");
 }
+
 //获取链表长度（不算头结点）
 int GetLength(LinkList list){
 	if(!list) return -1;
