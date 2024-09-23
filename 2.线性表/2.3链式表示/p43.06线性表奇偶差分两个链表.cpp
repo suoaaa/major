@@ -5,19 +5,22 @@ void splitOddEven(LinkList list,LinkList &odd,LinkList &even){
     odd=(LinkList)malloc(sizeof(LinkList));
     even=(LinkList)malloc(sizeof(LinkList));
     LNode *p=odd, *q=even, *r=list->next;
-    list->next=NULL;
-    while(r){
-        if(r->data%2){
-            p->next=r;
-            p=p->next;
-        }else{
-            q->next=r;
-            q=q->next;
-        }
+
+    for(int i=0;i<GetLength(list)/2;i++){
+        p->next=r;
+        p=p->next;
         r=r->next;
+        q->next=r;
+        q=q->next;
+        r=r->next;
+    }
+    if(GetLength(list)%2) {
+        p->next=r;
+        p=p->next;
     }
     p->next=NULL;
     q->next=NULL;
+    list->next=NULL;
 }
 int main(){
     List list={{7,4,3,4,5,2,1},7};
