@@ -1,7 +1,7 @@
 //使用O（1）的空间复杂度将带头结点的链表反转
 #include "head.h"
 void reverse(LinkList l){
-   LNode *p,*q;
+  LNode *p,*q;
    p=l->next;
    l->next=NULL;
    while(p!=NULL){

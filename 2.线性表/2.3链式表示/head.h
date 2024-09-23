@@ -13,7 +13,7 @@ typedef struct {
 typedef struct LNode {
 	ElemType data;
 	struct LNode* next;
-}LNode, * LinkList;
+}LNode, *LinkList;
 
 void swap(int& a, int& b) {
 	int t;
@@ -53,9 +53,22 @@ LinkList CreatList(List list) {
 }
 //输出链表
 void PrintList(LinkList list) {
-	while (list != NULL) {
-		printf("%d ", list->data);
-		list = list->next;
+	if(!list) return ;
+	LNode *p=list->next;
+	while (p != NULL) {
+		printf("%d ", p->data);
+		p = p->next;
 	}
 	printf("\n");
+}
+//获取链表长度（不算头结点）
+int GetLength(LinkList list){
+	if(!list) return -1;
+	int i=0;
+	LNode *p=list->next;
+	while(p){
+		i++;
+		p=p->next;
+	}
+	return i;
 }
