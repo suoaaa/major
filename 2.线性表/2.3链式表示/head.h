@@ -19,7 +19,8 @@ typedef struct LNode {
 //定义双链表
 typedef struct DLNode {
 	ElemType data;
-	struct LNode* next,prior;
+	int freq;
+	struct DLNode* next, *prior;
 }DLNode, *DLinkList;
 
 void swap(int& a, int& b) {
@@ -59,15 +60,46 @@ LinkList CreatList(List list) {
 	return head;
 }
 
-//输出链表
-void PrintList(LinkList list) {
-	if(!list) return ;
-	LNode *p=list->next;
-	while (p != NULL) {
-		printf("%d ", p->data);
-		p = p->next;
+//使用尾插法建循环双链表
+DLinkList CreatDList(List list) {
+	if (list.length < 1) {
+		return NULL;
 	}
-	printf("\n");
+	DLNode* head = (DLinkList)malloc(sizeof(DLNode)), *s;
+	head->data = 0;
+	head->next = NULL;
+	head->prior = NULL;
+	DLinkList p = head;
+	for(int i=0 ; i< list.length; i++) {
+		s = (DLinkList)malloc(sizeof(DLNode));
+		s->data = list.data[i];
+		s->freq = 0;
+		s->next = NULL;
+		p->next = s;
+		s->prior = p;
+		p = s;
+	}
+	head -> prior = s;
+	return head;
+}
+//使用尾插法建表
+LinkList CreatCirList(List list) {
+	if (list.length < 1) {
+		return NULL;
+	}
+	LNode* head = (LinkList)malloc(sizeof(LNode));
+	head->data = 0;
+	head->next = NULL;
+	LinkList p = head;
+	for(int i=0 ; i< list.length; i++) {
+		LNode* s = (LinkList)malloc(sizeof(LNode));
+		s->data = list.data[i];
+		s->next = NULL;
+		p->next = s;
+		p = s;
+	}
+	p->next = head;
+	return head;
 }
 
 //获取链表长度（不算头结点）
@@ -80,4 +112,26 @@ int GetLength(LinkList list){
 		p=p->next;
 	}
 	return i;
+}
+
+//输出链表
+void PrintList(LinkList list) {
+	if(!list) return ;
+	LNode *p=list->next;
+	while (p != NULL && p != list) {
+		printf("%d ", p->data);
+		p = p->next;
+	}
+	printf("\n");
+}
+
+//输出链表
+void PrintDList(DLinkList list) {
+	if(!list) return ;
+	DLNode *p=list->next;
+	while (p != NULL && p != list) {
+		printf("%d ", p->data);
+		p = p->next;
+	}
+	printf("\n");
 }
