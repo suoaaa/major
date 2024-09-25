@@ -18,6 +18,6 @@ int main(){
     List list={{1,2,3,4,5,6,7,4,3,1},10};
     LinkList l=CreatList(list);
     PrintList(l);
-   deleteNodeByData(l,2);
+    deleteNodeByData(l,2);
     PrintList(l);
 }

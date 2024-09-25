@@ -5,6 +5,15 @@
 #define MAX 50
 #define ElemType int
 
+void swap(int& a, int& b) {
+	int t;
+	t = a;
+	a = b;
+	b = t;
+}
+
+int abs(int x) {return x>=0 ? x : -x;}
+
 typedef struct {
 	int data[MAX];
 	int length;
@@ -22,13 +31,6 @@ typedef struct DLNode {
 	int freq;
 	struct DLNode* next, *prior;
 }DLNode, *DLinkList;
-
-void swap(int& a, int& b) {
-	int t;
-	t = a;
-	a = b;
-	b = t;
-}
 
 //初始化链表
 bool InitList(LinkList &L) {
