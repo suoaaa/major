@@ -1,0 +1,257 @@
+/*头文件包括：
+    顺序栈：	入栈、出栈
+	链式栈：	入栈、出栈
+	循环队列：	入队、出队
+	链式队列：	入队、出队
+	串：		求串长、复制、链接、字串、比较、求子串位置
+*/
+#include <iostream>
+#include <stdlib.h>
+const int  MAXSIZE = 100;
+
+//定义链表结点
+template <class T> struct Node {
+	T data;
+	struct Node<T>* next;
+};
+
+template <class T> class SeqStack {
+public:
+  	SeqStack ();
+	int     Empty();
+    T 	    GetTop();           //获取栈顶元素
+	bool    Push(T);            //入栈
+ 	T 	    Pop();              //出栈
+private:
+	T 	    data[MAXSIZE];      //存储结构
+	int 	top;
+};
+
+template <class T> class LinkStack {
+public:
+  	LinkStack ();  
+    ~LinkStack ();  
+	int 	Empty();
+    T 		GetTop();      	//获取栈顶元素
+	void 	Push(T);     	//入栈
+ 	T 		Pop();    		//出栈
+private:
+	Node<T>  *top;			
+};
+
+template <class T> class CirQueue 
+{
+public:
+    CirQueue();  
+    bool		Empty();
+	bool 	Full();
+    T 		GetQueue();    	//获取队头元素
+    void 	EnQueue(T);    	//入队
+    T 		DeQueue();     	//出队
+    int 	QueueLen();
+
+private:
+    T  		data[MAXSIZE];
+    int  	f, r;
+};
+
+template <class T> class LinkQueue {
+public:
+  	LinkQueue ();  
+	bool 	Empty();
+    T 		GetQueue();		//获取队头元素
+	void 	EnQueue(T);		//入队
+ 	T 		DeQueue();		//出队
+    ~LinkQueue ();  
+private:
+	Node<T>  *front, *rear;
+};
+
+template <class T>
+inline SeqStack<T>::SeqStack(){
+	top=-1;
+}
+
+template <class T>
+inline int SeqStack<T>::Empty(){
+	if(top==-1) return 1;
+	else return 0;
+}
+
+template <class T>
+inline T SeqStack<T>::GetTop(){
+	if(Empty())
+    	return data[top];
+	else return -1; 
+}
+
+template <class T>
+bool SeqStack<T>::Push(T x)
+{
+    if (top==MAXSIZE-1) return false;
+ 	data[++top] = x;
+}
+
+template <class T> 
+T SeqStack<T>::Pop(){
+    if (top==-1) return 0;
+    T x = data[top--] ;
+    return x;
+}
+
+template <class T>
+inline LinkStack<T>::LinkStack(){
+	top=NULL;
+}
+
+template <class T>
+inline LinkStack<T>::~LinkStack(){
+	Node<T> *p=top->next;
+	while(p){
+		top->next=p->next;
+		delete(p);
+		p=p->next;
+	}
+	delete(top);
+	top=NULL;
+}
+
+template <class T>
+inline int LinkStack<T>::Empty(){
+    if (top==NULL)	return 1;
+	else return 0;
+}
+
+template <class T>
+inline T LinkStack<T>::GetTop(){
+    return top->data;
+}
+
+template <class T>
+inline void LinkStack<T>::Push(T t){
+	Node<T> *p=new Node<T>;
+	p->data=t;
+	p->next=top;
+	top=p;
+}
+
+template <class T>
+inline T LinkStack<T>::Pop(){
+    if (top ==NULL) return 0;
+	Node<T> *p=top;
+	T t=p->data;
+	top=top->next;
+	delete(p);
+	return t;
+}
+
+template <class T>
+inline CirQueue<T>::CirQueue(){
+	f=0;r=0;
+}
+
+template <class T>
+inline bool CirQueue<T>::Empty(){
+    if (r==f) return 1;
+	else return 0;
+}
+
+template <class T>
+inline bool CirQueue<T>::Full(){
+	if((r+1)%MAXSIZE==f)    return 0;
+	else return 1;
+}
+
+template <class T>
+inline T CirQueue<T>::GetQueue(){
+    if(Empty) return 0;
+	return data[(f+1)%MAXSIZE];
+}
+
+template <class T>
+inline void CirQueue<T>::EnQueue(T t){
+	if(Full()) return ;
+	data[(++r)%MAXSIZE]=t;
+}
+
+template <class T> 
+T CirQueue <T>:: DeQueue(){
+        if (Empty) return 0;
+        return data [(++f)%MAXSIZE];
+}
+     
+template <class T> 
+int CirQueue <T>::QueueLen(){
+    //已知r和f，还有队列存储空间QueueSize
+    return (r-f+MAXSIZE)%MAXSIZE;
+}
+
+template <class T>
+inline LinkQueue<T>::LinkQueue(){
+	front = new Node<T>;
+	front->next = NULL;
+	rear = front;
+}
+
+template <class T>
+inline bool LinkQueue<T>::Empty(){
+    if(front==rear) return 0;
+	else return 1;
+}
+
+template <class T>
+inline T LinkQueue<T>::GetQueue(){
+	if(Empty) return 0;
+	else return front->next->data;
+}
+
+template <class T>
+inline void LinkQueue<T>::EnQueue(T t){
+	Node<T> *p=new Node<T> ;
+	p->data=t;
+	p->next=NULL;
+	rear->next=p;
+	rear=p;
+}
+
+template <class T>
+inline T LinkQueue<T>::DeQueue(){
+    Node<T> *p=front->next;
+	T t=p->data;
+	front->next=p->next;
+	if(p==rear) rear=front;
+	delete (p);
+	return t;
+}
+
+template <class T>
+inline LinkQueue<T>::~LinkQueue(){
+	while(front->next) DeQueue();
+	delete(front);
+	front = NULL;
+	rear = NULL;
+}
+//复制串
+void StrAssign(char *d,const char *s){
+	if(d==NULL) return ;
+	while(*d++ = *s++);
+}
+//求串长
+int StrLength (const char * s){
+	int n=0;
+	while((*s)!='\0') {
+		n++;
+		s++;
+	}
+	return n;
+}
+//字符串比较
+int StrCmp (const char * s1, const char * s2){
+	while((*s1) == (*s2)){
+		if(*s1 == '\0') return 0;
+		s1++;
+		s2++;
+	}
+	if(*s1 > *s2) return 1;
+	else return -1;
+}
