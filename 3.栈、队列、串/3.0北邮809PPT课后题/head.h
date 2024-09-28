@@ -3,7 +3,8 @@
 	链式栈：	入栈、出栈
 	循环队列：	入队、出队
 	链式队列：	入队、出队
-	串：		求串长、复制、链接、字串、比较、求子串位置
+	串：		求串长、复制、链接、字串、比较、求子串位置（KMP）
+	稀疏矩阵：	三元组转置的优化
 */
 #include <iostream>
 #include <stdlib.h>
@@ -67,6 +68,16 @@ private:
 	Node<T>  *front, *rear;
 };
 
+template <class T> struct  SparseMatrix{
+	struct element{
+		int   row; 
+		int   col;
+		T     item;
+	};
+	element data[MAXSIZE];
+	int m, n, t;  //行数、列数、非零元素数
+};
+
 template <class T>
 inline SeqStack<T>::SeqStack(){
 	top=-1;
@@ -90,11 +101,11 @@ bool SeqStack<T>::Push(T x)
 {
     if (top==MAXSIZE-1) return false;
  	data[++top] = x;
+	return true;
 }
 
 template <class T> 
 T SeqStack<T>::Pop(){
-    if (top==-1) return 0;
     T x = data[top--] ;
     return x;
 }
@@ -106,13 +117,9 @@ inline LinkStack<T>::LinkStack(){
 
 template <class T>
 inline LinkStack<T>::~LinkStack(){
-	Node<T> *p=top->next;
-	while(p){
-		top->next=p->next;
-		delete(p);
-		p=p->next;
+	while(!Empty()){
+		Pop();
 	}
-	delete(top);
 	top=NULL;
 }
 
@@ -137,7 +144,6 @@ inline void LinkStack<T>::Push(T t){
 
 template <class T>
 inline T LinkStack<T>::Pop(){
-    if (top ==NULL) return 0;
 	Node<T> *p=top;
 	T t=p->data;
 	top=top->next;
@@ -254,4 +260,62 @@ int StrCmp (const char * s1, const char * s2){
 	}
 	if(*s1 > *s2) return 1;
 	else return -1;
+}
+
+
+
+//稀疏矩阵的转置
+template<class T>
+void Transpose(SparseMatrix<T> A, SparseMatrix<T> &B){   
+    //初始化相关信息
+    B.m = A.n;   	//行数
+    B.n = A.m;   	//列数
+    B.t = A.t;     //元素数
+	int *num=new int[A.n];
+	int *pot=new int[A.n];
+	pot[0]=0;
+	for(int i=1;i<A.n;i++){
+		pot[i]=pot[i-1]+num[i-1];
+	}
+	for(int i=0;i<A.t;i++)
+		num[A.data[i].col]++;
+    if (B.t>0){
+		for(int i=0;i<A.t;i++){
+			int j=A.data[i].col;
+			B.data[pot[j]].row = A.data[i].col;
+			B.data[pot[j]].col = A.data[i].row;
+			B.data[pot[j]].item = A.data[i].item;
+			pot[j]++;
+		}
+    }
+}
+
+
+class Point{
+public:
+    Point(int x,int y);
+    Point();
+    int x;
+    int y;
+    bool operator == (Point B);
+    void operator = (Point B);
+};
+
+Point::Point(int x, int y){
+    this->x=x;
+    this->y=y;
+}
+
+Point::Point(){
+}
+
+bool Point::operator==(Point B)
+{
+    if(B.x==x&&y==B.y)  return true;
+    else return false;
+}
+
+inline void Point::operator=(Point B){
+	this->x=B.x;
+    this->y=B.y;
 }
