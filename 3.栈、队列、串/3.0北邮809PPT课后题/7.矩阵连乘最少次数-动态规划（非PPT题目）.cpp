@@ -6,24 +6,23 @@
 #include <iostream>
 using namespace std;
 int dp[200][200];
-int BestValue(int row[], int col[], int n) {
-    if(row<=0 || col<=0 || n <= 0)
-    {   printf("error");    return 0;   }
-    for (int i = 0; i < n; i++)
-        if(row[i] <= 0 || col[i] <= 0)
-        {   printf("error");    return 0;   }
+int error(){
+    cout<<"error"<<endl;
+    return 0;
+}
+int BestValue(int row[], int col[], int n){
+    if(n<=0 || row[0]<=0 || col[0]<=0) return error();
     for (int i = 1; i < n; i++)
-        if (col[i - 1] != row[i]) 
-        {   printf("error");    return 0;   }
+        if (col[i - 1] != row[i] || row[i]<=0 || col[i]<=0) return error(); 
     memset(dp, 10000, sizeof(dp));
-    for (int i = 0; i < n; i++)
-        dp[i][i] = 0;
+    for(int i=0;i<n;i++) dp[i][i]=0;
     for (int l = 1; l < n; l++)
         for (int i = 0; i + l < n; i++)
             for (int k = 0; k < l; k++)
                 dp[i][i + l] = min(dp[i][i + l], dp[i][i + k] + dp[i + k + 1][i + l] + row[i] * col[i + k] * col[i + l]);
     return dp[0][n - 1];
 }
+
 int main()
 {
     int a[20],b[20],i;
