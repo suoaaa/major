@@ -3,7 +3,6 @@
 	链式栈：	入栈、出栈
 	循环队列：	入队、出队
 	链式队列：	入队、出队
-	串：		求串长、复制、链接、字串、比较、求子串位置（KMP）
 	稀疏矩阵：	三元组转置的优化
 */
 #include <iostream>
@@ -237,31 +236,6 @@ inline LinkQueue<T>::~LinkQueue(){
 	front = NULL;
 	rear = NULL;
 }
-//复制串
-void StrAssign(char *d,const char *s){
-	if(d==NULL) return ;
-	while(*d++ = *s++);
-}
-//求串长
-int StrLength (const char * s){
-	int n=0;
-	while((*s)!='\0') {
-		n++;
-		s++;
-	}
-	return n;
-}
-//字符串比较
-int StrCmp (const char * s1, const char * s2){
-	while((*s1) == (*s2)){
-		if(*s1 == '\0') return 0;
-		s1++;
-		s2++;
-	}
-	if(*s1 > *s2) return 1;
-	else return -1;
-}
-
 
 
 //稀疏矩阵的转置
