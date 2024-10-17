@@ -1,4 +1,4 @@
-//北邮数据结构以类和模板为基础实现单链表操作
+//以类和模板为基础实现单链表操作
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
