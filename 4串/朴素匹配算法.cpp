@@ -2,8 +2,6 @@
 #include <iostream>
 using namespace std;
 int simple_match(SString s1,SString s2){
-
-
     int i=1,j=1;
     while(i<=s1.length && j<=s2.length){
         if(s1.ch[i] == s2.ch[j]) {
