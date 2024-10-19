@@ -23,15 +23,26 @@ void swapTree(BiTree &T){
         q.push(p->rchild);
     }
 }
+void swap_Tree(BiTree &T){
+    if(T){
+        swap_Tree(T->lchild);
+        swap_Tree(T->rchild);
+        swapNode(T);
+    }
+}
 int main(){
     int val[31]={0};
     for(int i=0;i<31;i++){
         val[i]=i+1;
     }
-    BiTree T;
-    CreateBiTree(T,val,31,1);
-    SequenceOrder(T);
-    swapTree(T);
-    SequenceOrder(T);
+    BiTree T1,T2;
+    CreateBiTree(T1,val,31,1);
+    CreateBiTree(T2,val,31,1);
+    SequenceOrder(T1);
+    swapTree(T1);
+    swap_Tree(T2);
+
+    SequenceOrder(T1);
+    SequenceOrder(T2);
 
 }
