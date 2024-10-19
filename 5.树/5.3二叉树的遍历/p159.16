@@ -1,0 +1,17 @@
+/**/
+#include "head.h"
+#include <iostream>
+#include <queue>
+#include <stack>
+using namespace std;
+/**/
+
+int main(){
+    int val[31]={0};
+    for(int i=0;i<31;i++){
+        val[i]=i+1;
+    }
+    BiTree T;
+    CreateBiTree(T,val,31,1);
+    SequenceOrder(T);
+}
