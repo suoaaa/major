@@ -8,13 +8,13 @@ typedef struct node { //树的结点
     node* rchild;
 }Node, *BiTree;
 
-void CreateBiTree(BiTree& T,int val[],int n,int i)
+void CreateBiTree(BiTree& T,int val[],int n,int i=1)
 {
-    if (i>n)
-        T = NULL;
-    else{
+    if (i<=n&&i>0){
         T = new Node;
         T->val = val[i-1];
+        T->lchild=NULL;
+        T->rchild=NULL;
         CreateBiTree(T->lchild,val,n,2*i);
         CreateBiTree(T->rchild,val,n,2*i+1);
     }
