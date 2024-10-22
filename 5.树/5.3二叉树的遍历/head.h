@@ -6,7 +6,7 @@ typedef struct node { //树的结点
     int val;
     node* lchild;
     node* rchild;
-    node(){};
+    node():lchild(NULL),rchild(NULL){};
     node(int v):val(v),lchild(NULL),rchild(NULL){};
 }Node, *BiTree;
 
