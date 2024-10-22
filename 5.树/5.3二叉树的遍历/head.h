@@ -6,6 +6,8 @@ typedef struct node { //树的结点
     int val;
     node* lchild;
     node* rchild;
+    node(){};
+    node(int v):val(v),lchild(NULL),rchild(NULL){};
 }Node, *BiTree;
 
 void CreateBiTree(BiTree& T,int val[],int n,int i=1)
