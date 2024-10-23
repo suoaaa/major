@@ -1,11 +1,12 @@
 #include <iostream>
 #include<string.h>
 using namespace std;
-
+void test(int num[]){
+    num[0]=0;
+}
 int main(){
-    int a[10]={-1};
-    memset(a,-1,sizeof(a));
-    for(int i=0;i<10;i++){
-        cout<<a[i]<<" ";
-    }
+   int num[10];
+   num[0]=2;
+   test(num);
+   cout<<num[0];
 }
