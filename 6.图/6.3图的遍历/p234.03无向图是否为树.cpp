@@ -3,9 +3,35 @@
 #include <iostream>
 #include <string.h>
 using namespace std;
-//无向图为树的条件是图有n-1条边的连通图
+//无向图为树的条件是图有n-1条边的连通图,需要对图进行深度优先遍历，记录遍历过的边和点的个数
+void DFS(MGraph G,int v,bool visited[],int &en,int &vn);
+int next(MGraph G,int v,int j=0);
+
 bool isTree(MGraph G){                      //使用邻接矩阵判断
     bool visited[MaxVertexNum];
     memset(visited,false,sizeof(visited));
-    int Enum=0,Vnum=0;
+    int en=0,vn=0;
+    DFS(G,1,visited,en,vn);
+    if(en==vn-1&&vn==G.vexnum) return true;
+    else return false;
+}
+
+void DFS(MGraph G,int v,bool visited[],int &en,int &vn){
+    visited[0]=1;
+    vn++;
+    int w=next(G,v);
+    while(w!=-1){
+        if(!visited[w]){
+            en++;
+            DFS(G,w,visited,en,vn);
+        }
+        w=next(G,v,w);
+    }
+}
+
+int next(MGraph G,int v,int j=0){
+    for(int i=j+1;i<G.vexnum;i++){
+        if(G.Edge[v][i]==1) return i;
+    }
+    return -1;
 }

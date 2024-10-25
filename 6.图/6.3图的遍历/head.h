@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <queue>
+#include <string.h>
 #include <iostream>
 using namespace std;
 
@@ -15,7 +17,7 @@ typedef struct MGraph{                  //图的定义
 
 //以下为图的邻接表存储结构
 typedef struct ArcNode{                 //边表结点
-    int adjvex;                  //该弧所指向的顶点的位置
+    int adjvex;                         //该弧所指向的顶点的位置
     struct ArcNode *nextarc;            //指向下一条弧的指针
     int info;
     ArcNode(VertexType adjvex):adjvex(adjvex),nextarc(NULL){};
@@ -33,6 +35,12 @@ typedef struct ALGraph{
     AdjList vertices[MaxVertexNum];     //领接表
     int vexnum,arcnum;                  //图的顶点数和弧数
 }ALGraph;                               //ALGraph是以邻接表存储的图类型
+
+void visit(ALGraph G, bool visited[], int i);
+void unvisit(ALGraph G, bool visited[], int i);
+void DFSTraverse(ALGraph G);                            //邻接表的深度遍历操作
+void DFS(ALGraph G, bool visited[], int i);             //邻接表的深度优先递归
+void BFS(ALGraph G, bool visited[], int i);             //邻接表的广度优先递归
 
 void printALGraph(ALGraph g){
     for(int i=0;i<g.vexnum;i++){
@@ -54,24 +62,47 @@ void printArcs(int arcs[3][3],int n){
     }
 }
 
-void visit(AdjList c){cout<<c.data<<" ";}
-void DFS(ALGraph G, bool visited[],int i){             //邻接表的深度优先递归
-    visit(G.vertices[i]);
-    ArcNode* p;
-    visited[i] = true;         		    //访问过了该顶点，标记为TRUE 
-    cout << G.vertices[i].data << " ";
-    p = G.vertices[i].firstarc;         //让p指向边表第一个结点 
-    while (p) {                         //在边表内遍历 
-        if (!visited[p->adjvex])        //对未访问的邻接顶点递归调用 
+
+void visit(ALGraph G, bool visited[], int i){
+    visited[i] = true;         		                    //访问过了该顶点，标记为TRUE 
+    //cout<<G.vertices[i].data<<" ";
+}
+
+void visit(ALGraph G, bool visited[], int i){
+    visited[i] = false;
+    //cout<<G.vertices[i].data<<" ";
+}
+void DFS(ALGraph G, bool visited[],int i){      //邻接表的深度优先递归
+    visit(G,visited,i);
+       ArcNode* p= G.vertices[i].firstarc;      //让p指向边表第一个结点 
+    while (p) {                                 //在边表内遍历 
+        if (!visited[p->adjvex])                //对未访问的邻接顶点递归调用 
             DFS(G, visited,p->adjvex);
         p = p->nextarc;
     }
 }
 
-void DFSTraverse(ALGraph G) {           //邻接表的深度遍历操作
+void BFS(ALGraph G, bool visited[], int i){     //邻接表的广度优先递归
+    queue<AdjList> q;
+    q.push(G.vertices[i]);
+    visit(G,visited,i);
+    ArcNode* p;                                 //让p指向边表第一个结点 
+    while (!q.empty()) {
+        p=q.front().firstarc;
+        q.pop();
+        do{
+            if (p!=NULL&&!visited[p->adjvex]){
+            visit(G, visited,p->adjvex);
+            q.push(G.vertices[p->adjvex]);
+            }
+            p=p->nextarc;
+        }while(p->nextarc!=NULL);
+    }
+
+}
+void DFSTraverse(ALGraph G) {                   //邻接表的深度遍历操作
     bool visited[MaxVertexNum];
-    for(int i=0;i< G.vexnum;i++)
-        visited[i] = false;             //初始设置为未访问 
+    memset(visited,false,sizeof(visited));      //初始设置为未访问 
     for(int i=0;i< G.vexnum;i++)
         if (!visited[i])
             DFS(G, visited, i);	                //对未访问的顶点调用DFS，若是连通图只会执行一次 			
