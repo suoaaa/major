@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-#pragma region ½¨Á¢´øÍ·½áµãµÄÁ´±í
+#pragma region å»ºç«‹å¸¦å¤´ç»“ç‚¹çš„é“¾è¡¨
 
 #define ElemType int
 #define _for(i,a,b) for(int i=(a);i<(b);i++)
@@ -12,31 +12,31 @@ typedef struct LNode {
 	struct LNode* next;
 }LNode, * LinkList;
 
-//³õÊ¼»¯Á´±í
+//åˆå§‹åŒ–é“¾è¡¨
 bool InitList(LinkList& L) {
-	//·ÖÅäÒ»¸öÍ·½áµã
+	//åˆ†é…ä¸€ä¸ªå¤´ç»“ç‚¹
 	L = (LNode*)malloc(sizeof(LNode));
-	//ÄÚ´æ²»×ã£¬·ÖÅäÊ§°Ü
+	//å†…å­˜ä¸è¶³ï¼Œåˆ†é…å¤±è´¥
 	if (L == NULL) {
 		return false;
 	}
-	//Í·½áµãÖ®ºóÔİÊ±»¹Ã»ÓĞ½Úµã
+	//å¤´ç»“ç‚¹ä¹‹åæš‚æ—¶è¿˜æ²¡æœ‰èŠ‚ç‚¹
 	L->next = NULL;
 	return true;
 }
 
 
-//ÅĞ¶ÏÊÇ·ñÎª¿Õ
+//åˆ¤æ–­æ˜¯å¦ä¸ºç©º
 bool IsEmpty(LinkList L) {
 	return ((L->next) == NULL);
 }
 
-//Ê¹ÓÃÎ²²å·¨½¨±í
+//ä½¿ç”¨å°¾æ’æ³•å»ºè¡¨
 LinkList CreatList(vector<int> data) {
 	if (data.size() < 1) {
 		return NULL;
 	}
-	//Í·½áµã
+	//å¤´ç»“ç‚¹
 	LNode* head = (LinkList)malloc(sizeof(LNode));
 	head->data = NULL;
 	head->next = NULL;
@@ -50,7 +50,7 @@ LinkList CreatList(vector<int> data) {
 	}
 	return head;
 }
-//Êä³öÁ´±í
+//è¾“å‡ºé“¾è¡¨
 void PrintList(LinkList list) {
 	list = list->next;
 	while (list != NULL) {
@@ -63,11 +63,11 @@ void PrintList(LinkList list) {
 #pragma endregion
 
 //P278.7(2)
-//ÏßĞÔ±íÖĞ¸÷½áµãµÄ¼ìË÷¸ÅÂÊ²»µÈÊ±,¿ÉÓÃÈçÏÂ²ßÂÔÌá¸ßË³Ğò¼ìË÷µÄĞ§ÂÊ:ÈôÕÒµ½Ö¸¶¨µÄ
-//½áµã,Ôò½«¸Ã½áµãºÍÆäÇ°Çı½áµã(Èô´æÔÚ)½»»», Ê¹µÃ¾­³£±»¼ìË÷µÄ½áµã¾¡Á¿Î»ÓÚ±íµÄ
-//Ç°¶Ë¡£ÊÔÉè¼ÆÔÚË³Ğò½á¹¹ºÍÁ´Ê½½á¹¹µÄÏßĞÔ±íÉÏÊµÏÖÉÏÊö²ßÂÔµÄË³ĞòñÏË÷Ëã·¨¡£
+//çº¿æ€§è¡¨ä¸­å„ç»“ç‚¹çš„æ£€ç´¢æ¦‚ç‡ä¸ç­‰æ—¶,å¯ç”¨å¦‚ä¸‹ç­–ç•¥æé«˜é¡ºåºæ£€ç´¢çš„æ•ˆç‡:è‹¥æ‰¾åˆ°æŒ‡å®šçš„
+//ç»“ç‚¹,åˆ™å°†è¯¥ç»“ç‚¹å’Œå…¶å‰é©±ç»“ç‚¹(è‹¥å­˜åœ¨)äº¤æ¢, ä½¿å¾—ç»å¸¸è¢«æ£€ç´¢çš„ç»“ç‚¹å°½é‡ä½äºè¡¨çš„
+//å‰ç«¯ã€‚è¯•è®¾è®¡åœ¨é¡ºåºç»“æ„å’Œé“¾å¼ç»“æ„çš„çº¿æ€§è¡¨ä¸Šå®ç°ä¸Šè¿°ç­–ç•¥çš„é¡ºåºè££ç´¢ç®—æ³•ã€‚
 
-//Á´Ê½ÊµÏÖ
+//é“¾å¼å®ç°
 
 int Search(LinkList &head,ElemType key) {
 
@@ -92,11 +92,11 @@ int main()
 	InitList(head);
 	head = CreatList(data);
 	PrintList(head);
-	cout << "Î»ÖÃÎª£º" << Search(head, 8) << endl;
-	cout << "Î»ÖÃÎª£º" << Search(head, 8) << endl;
-	cout << "Î»ÖÃÎª£º" << Search(head, 8) << endl;
-	cout << "Î»ÖÃÎª£º" << Search(head, 41) << endl;
-	cout << "Î»ÖÃÎª£º" << Search(head, 41) << endl;
+	cout << "ä½ç½®ä¸ºï¼š" << Search(head, 8) << endl;
+	cout << "ä½ç½®ä¸ºï¼š" << Search(head, 8) << endl;
+	cout << "ä½ç½®ä¸ºï¼š" << Search(head, 8) << endl;
+	cout << "ä½ç½®ä¸ºï¼š" << Search(head, 41) << endl;
+	cout << "ä½ç½®ä¸ºï¼š" << Search(head, 41) << endl;
 	PrintList(head);
 	return 0;
 }
