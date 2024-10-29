@@ -1,7 +1,6 @@
 /*编写一个算法, 在基于单链表表示的待排序关键字序列上进行简单选择排序*/
 #include "head.h"
 #include <iostream>
-#include <vector>
 using namespace std;
 
 void SortList(LinkList &head) {

@@ -1,7 +1,6 @@
 /*试设计一个算法, 判断一个数据序列是否构成一个小根堆*/
 #include "head.h"
 #include <iostream>
-#include <vector>
 using namespace std;
 
 bool IsHeap(List l) {
