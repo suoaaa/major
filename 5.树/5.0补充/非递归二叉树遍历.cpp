@@ -13,10 +13,11 @@ inline void BiTree<T>::PreOrder_(){
     while(!s.empty() || r!=NULL){
         if(r!=NULL){
             s.push(r);
-            cout<<r->data<<" ";
             r=r->lch;
         }else{
-            r=s.top()->rch;
+            r=s.top();
+            cout<<r->data<<" ";
+            r=r->rch;
             s.pop();
         }
     }
