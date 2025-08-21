@@ -12,8 +12,8 @@ bool is_complete(BiTree T){
     while(!q.empty()){
         p=q.front();
         q.pop();
-        if(p->lchild==NULL ^ p->rchild==NULL) return false; //左右孩子只有一个
-        if(p->lchild&& p->rchild&& flag) return false;      //之前出现过没有孩子的结点，以后的结点有孩子
+        if(p->lchild==NULL && p->rchild!=NULL) return false;    //有右无左孩子
+        if(p->lchild&& p->rchild&& flag) return false;          //之前出现过没有孩子的结点，以后的结点有孩子
         if(p->lchild&& p->rchild) {
             q.push(p->lchild);
             q.push(p->rchild);
